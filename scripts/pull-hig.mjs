@@ -18,6 +18,11 @@
  *                             [--concurrency <n>] [--no-prune]
  *
  * Requires Node 18 or newer (global fetch). No dependencies.
+ *
+ * The only network activity is a user-triggered GET of HIG JSON from
+ * developer.apple.com. Each request has no body and is refused unless the URL
+ * stays on that host and path. Redirects are refused so a response cannot
+ * send the client anywhere else.
  */
 
 import { mkdir, readFile, readdir, unlink, writeFile } from 'node:fs/promises';
@@ -128,6 +133,16 @@ function parseArgs(argv) {
 // Fetching and crawling
 // ---------------------------------------------------------------------------
 
+function higJsonUrl(slug) {
+  if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Refusing to fetch a non-HIG slug: ${slug}`);
+  const url = new URL(`${DATA_BASE}/${slug}.json`);
+  const expectedPath = `/tutorials/data/design/human-interface-guidelines/${slug}.json`;
+  if (url.origin !== 'https://developer.apple.com' || url.pathname !== expectedPath || url.search || url.hash || url.username || url.password) {
+    throw new Error(`Refusing to fetch outside the Apple HIG JSON path: ${url.href}`);
+  }
+  return url;
+}
+
 async function fetchPageJson(slug, opts) {
   const cacheFile = opts.cache ? path.join(opts.cache, `${slug}.json`) : null;
   if (cacheFile) {
@@ -137,8 +152,8 @@ async function fetchPageJson(slug, opts) {
       // Cache miss: fall through to the network.
     }
   }
-  const url = `${DATA_BASE}/${slug}.json`;
-  const response = await fetch(url);
+  const url = higJsonUrl(slug);
+  const response = await fetch(url, { method: 'GET', redirect: 'error' });
   if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
   const text = await response.text();
   if (cacheFile) {

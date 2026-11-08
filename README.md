@@ -12,16 +12,16 @@ template.
 ### With the skills CLI
 
 ```bash
-npx skills add dickwu/apple-design-skill
+npx skills add asharma88/apple-design-skill
 ```
 
 This works for Claude Code, Codex, Cursor, Antigravity, OpenCode, Windsurf, and every other agent the
 [skills CLI](https://skills.sh) supports. Useful variations:
 
 ```bash
-npx skills add dickwu/apple-design-skill -a claude-code   # install for one agent only
-npx skills add dickwu/apple-design-skill -g               # user-wide instead of this project
-npx skills add dickwu/apple-design-skill --list           # show what would be installed
+npx skills add asharma88/apple-design-skill -a claude-code   # install for one agent only
+npx skills add asharma88/apple-design-skill -g               # user-wide instead of this project
+npx skills add asharma88/apple-design-skill --list           # show what would be installed
 npx skills update apple-design                            # pull the latest version later
 ```
 
@@ -30,24 +30,24 @@ npx skills update apple-design                            # pull the latest vers
 Claude Code reads skills from `.claude/skills/` in a project or `~/.claude/skills/` for the user:
 
 ```bash
-git clone https://github.com/dickwu/apple-design-skill.git ~/.claude/skills/apple-design
+git clone https://github.com/asharma88/apple-design-skill.git ~/.claude/skills/apple-design
 ```
 
 The skill triggers on design-review requests and is also available as `/apple-design`.
 
 ### Cursor
 
-Install with `npx skills add dickwu/apple-design-skill -a cursor`, or clone the repository into
+Install with `npx skills add asharma88/apple-design-skill -a cursor`, or clone the repository into
 your project and keep its `.cursorrules` next to your own rules. Then ask Cursor:
 *"Review this screen against Apple's HIG"*.
 
 ### Codex
 
-Install with `npx skills add dickwu/apple-design-skill -a codex`, or add the repository as a
+Install with `npx skills add asharma88/apple-design-skill -a codex`, or add the repository as a
 submodule and point `AGENTS.md` at it:
 
 ```bash
-git submodule add https://github.com/dickwu/apple-design-skill.git .design-rules
+git submodule add https://github.com/asharma88/apple-design-skill.git .design-rules
 ```
 
 ```markdown
@@ -59,11 +59,11 @@ Follow `.design-rules/SKILL.md`, which names every guideline file, and load the 
 
 ### Antigravity
 
-Install with `npx skills add dickwu/apple-design-skill -a antigravity`, or clone the repository into
+Install with `npx skills add asharma88/apple-design-skill -a antigravity`, or clone the repository into
 `.agents/skills/apple-design` in your project or global `~/.gemini/antigravity/` configuration:
 
 ```bash
-git clone https://github.com/dickwu/apple-design-skill.git .agents/skills/apple-design
+git clone https://github.com/asharma88/apple-design-skill.git .agents/skills/apple-design
 ```
 
 You can also keep its `GEMINI.md` next to your own project rules to activate Apple HIG design
@@ -183,13 +183,9 @@ script twice produces identical output, so a clean `git status` after a second r
 
 `AGENTS.md` lists the checks to run before committing a refresh.
 
-## Sponsor
-
-If this skill saves you review time, you can support its upkeep through
-[GitHub Sponsors](https://github.com/sponsors/dickwu). One-time and monthly tiers are available,
-and the Sponsor button at the top of the repository leads to the same page.
-
 ## Origin and license
+
+Based on dickwu/apple-design-skill.
 
 The guideline text belongs to Apple Inc. and is reproduced from the public
 [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
